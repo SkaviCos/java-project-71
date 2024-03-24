@@ -1,33 +1,49 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
-import java.io.File;
-import java.math.BigInteger;
 import java.nio.file.Files;
-import java.security.MessageDigest;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name = "checksum", mixinStandardHelpOptions = true, version = "checksum 4.0",
-        description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
+@Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
+        description = "Compares two configuration files and shows a difference.")
 class App implements Callable<Integer> {
+    @Parameters(description = "path to first file.")
+    private String filepath1 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file1.json";
+    @Parameters(description = "path to second file")
+    private String filepath2 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file2.json";
 
-    @CommandLine.Parameters(index = "0", description = "The file whose checksum to calculate.")
-    private File file;
-
-    @CommandLine.Option(names = {"-a", "--algorithm"}, description = "MD5, SHA-1, SHA-256, ...")
-    private String algorithm = "SHA-256";
-
-    @Override
-    public Integer call() throws Exception { // your business logic goes here...
-        byte[] fileContents = Files.readAllBytes(file.toPath());
-        byte[] digest = MessageDigest.getInstance(algorithm).digest(fileContents);
-        System.out.printf("%0" + (digest.length*2) + "x%n", new BigInteger(1, digest));
-        return 0;
-    }
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "format";
 
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
+
+    @Override
+    public Integer call() throws Exception {
+        Path path1 = Paths.get(filepath1).toAbsolutePath();
+        Path path2 = Paths.get(filepath2).toAbsolutePath();
+        String json1 = Files.readString(path1);
+        String json2 = Files.readString(path2);
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> map1 = mapper.readValue(json1, Map.class);
+        Map<String, Object> map2 = mapper.readValue(json2, Map.class);
+        Differ.generate(map1, map2);
+        return  0;
+    }
+
+//    @Override
+//    public Integer call() throws Exception {
+//        System.out.println(Differ.generate(filepath1, filepath2, format));
+//        return 0;
+//    }
 }
