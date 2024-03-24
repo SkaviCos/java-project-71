@@ -1,1 +1,0 @@
-### [Демо работы программы на шаге 5](https://asciinema.org/a/g7RGwAFQF9mVFCIp0WnZWNdBb)
