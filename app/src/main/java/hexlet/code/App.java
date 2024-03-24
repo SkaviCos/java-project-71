@@ -16,9 +16,9 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 class App implements Callable<Integer> {
     @Parameters(description = "path to first file.")
-    private String filepath1 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file1.json";
+    private final String filepath1 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file1.json";
     @Parameters(description = "path to second file")
-    private String filepath2 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file2.json";
+    private final String filepath2 = "/Users/skavicos/IdeaProjects/skaviCos/java-project-71/app/file2.json";
 
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private String format = "format";
@@ -38,12 +38,7 @@ class App implements Callable<Integer> {
         Map<String, Object> map1 = mapper.readValue(json1, Map.class);
         Map<String, Object> map2 = mapper.readValue(json2, Map.class);
         Differ.generate(map1, map2);
-        return  0;
+        return 0;
     }
 
-//    @Override
-//    public Integer call() throws Exception {
-//        System.out.println(Differ.generate(filepath1, filepath2, format));
-//        return 0;
-//    }
 }
