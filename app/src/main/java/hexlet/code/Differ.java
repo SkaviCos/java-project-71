@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class Differ {
 
-    public static void generate(Map<String, Object> map1, Map<String, Object> map2) {
+    public static String generate(Map<String, Object> map1, Map<String, Object> map2) {
         StringBuilder result = new StringBuilder("{\n");
         Set<String> commonKeys = new TreeSet<>();
         commonKeys.addAll(map1.keySet());
@@ -29,6 +29,6 @@ public class Differ {
             }
         }
         result.append("}").toString().trim();
-        System.out.println(result);
+        return result.toString();
     }
 }
