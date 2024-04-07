@@ -1,34 +1,38 @@
 package hexlet.code;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Differ {
 
-    public static String generate(Map<String, Object> map1, Map<String, Object> map2) {
-        StringBuilder result = new StringBuilder("{\n");
-        Set<String> commonKeys = new TreeSet<>();
-        commonKeys.addAll(map1.keySet());
-        commonKeys.addAll(map2.keySet());
+    public static String generate(String pathFile1, String pathFile2, String format) throws Exception {
+        String data1 = getData(pathFile1);
+        String data2 = getData(pathFile2);
 
-        for (var key : commonKeys) {
-            String string1 = key + ": " + map1.get(key) + "\n";
-            String string2 = key + ": " + map2.get(key) + "\n";
-            if (!map1.containsKey(key)) {
-                result.append("  + ").append(string2);
-            } else if (!map2.containsKey(key)) {
-                result.append("  - ").append(string1);
-            } else {
-                if (map1.get(key).equals(map2.get(key))) {
-                    result.append("    ").append(string1);
-                } else {
-                    result.append("  - ").append(string1);
-                    result.append("  + ").append(string2);
-                }
-            }
-        }
-        result.append("}").toString().trim();
-        return result.toString();
+        String fileType1 = getFType(pathFile1);
+        String fileType2 = getFType(pathFile2);
+
+        Map<String, Object> map1 = Parser.parse(data1, fileType1);
+        Map<String, Object> map2 = Parser.parse(data2, fileType2);
+
+        List<Map<String, Object>> result = GenerateDifference.differ(map1, map2);
+
+        return Formatter.formatStyle(result, format);
+    }
+
+    public static String generate(String pathfile1, String pathfile2) throws Exception {
+        return generate(pathfile1, pathfile2, "stylish");
+    }
+
+    public static String getData(String filepath) throws Exception {
+        Path path = Paths.get(filepath.substring(filepath.indexOf("src")));
+        return Files.readString(path);
+    }
+
+    public static String getFType(String filepath) {
+        return filepath.substring(filepath.indexOf(".") + 1);
     }
 }
