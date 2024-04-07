@@ -10,12 +10,12 @@ import java.util.Map;
 public class Parser {
 
     public static Map<String, Object> parse(String data, String fileType) throws IOException {
-        ObjectMapper objectmapper = chooseFormat(fileType);
+        ObjectMapper objectmapper = chooseFileType(fileType);
         return objectmapper.readValue(data, new TypeReference<>() {
         });
     }
 
-    private static ObjectMapper chooseFormat(String fileType) {
+    private static ObjectMapper chooseFileType(String fileType) {
         return "json".equals(fileType) ? new ObjectMapper() : new ObjectMapper(new YAMLFactory());
     }
 
