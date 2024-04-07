@@ -15,8 +15,7 @@ public class Formatter {
             return Stylish.format(differences);
         } else if (format.equals("plain")) {
             return Plain.format(differences);
-        }
-        else {
+        } else {
             System.out.println("Format" + format + "is not correct!");
         }
         return Stylish.format(differences);

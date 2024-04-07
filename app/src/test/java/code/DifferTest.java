@@ -24,43 +24,37 @@ public class DifferTest {
             Paths.get("src/test/resources/expected/testJson").toAbsolutePath().normalize();
 
     @Test
-    public void test1() throws Exception {
-        String expected = Files.readString(pathStylish);
-        assertEquals(expected, Differ.generate(path1, path2));
-    }
-
-    @Test
-    public void testStylish1() throws Exception {
+    public void testJsonStyleStylish() throws Exception {
         String expected = Files.readString(pathStylish);
         assertEquals(expected, Differ.generate(path1, path2, "stylish"));
     }
 
     @Test
-    public void testStylish2() throws Exception {
+    public void testYamlStyleStylish() throws Exception {
         String expected = Files.readString(pathStylish);
         assertEquals(expected, Differ.generate(path3, path4, "stylish"));
     }
 
     @Test
-    public void testPlain1() throws Exception {
+    public void testJsonStylePlain() throws Exception {
         String expected = Files.readString(pathPlain);
         assertEquals(expected, Differ.generate(path1, path2, "plain"));
     }
 
     @Test
-    public void testPlain2() throws Exception {
+    public void testYamlStylePlain() throws Exception {
         String expected = Files.readString(pathPlain);
         assertEquals(expected, Differ.generate(path3, path4, "plain"));
     }
 
     @Test
-    public void testJson1() throws Exception {
+    public void testJsonStyleJson() throws Exception {
         String expected = Files.readString(pathJson);
         assertEquals(expected, Differ.generate(path1, path2, "json"));
     }
 
     @Test
-    public void testJson2() throws Exception {
+    public void testYamlStyleJson() throws Exception {
         String expected = Files.readString(pathJson);
         assertEquals(expected, Differ.generate(path3, path4, "json"));
     }
