@@ -31,7 +31,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy
+    finalizedBy(jacoco)
 }
 //
 tasks.jacocoTestReport {
@@ -39,6 +39,10 @@ tasks.jacocoTestReport {
             reports {
                 xml.required = true
             }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
 }
 
 tasks.getByName("run", JavaExec::class) {
