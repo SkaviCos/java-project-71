@@ -33,8 +33,7 @@ public class Plain {
     }
 
     public static String complexValue(Object data) {
-        if (data instanceof Object[] || data instanceof Collections || data instanceof Map
-                || data instanceof ArrayList<?>) {
+        if (data instanceof List || data instanceof Map) {
             return "[complex value]";
         } else if (data instanceof String) {
             return "'" + data + "'";

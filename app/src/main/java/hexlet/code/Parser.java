@@ -16,7 +16,15 @@ public class Parser {
     }
 
     private static ObjectMapper chooseFileType(String fileType) {
-        return "json".equals(fileType) ? new ObjectMapper() : new ObjectMapper(new YAMLFactory());
+        switch (fileType) {
+            case "json" -> {
+                return new ObjectMapper();
+            }
+            case "yaml", "yml" -> {
+                return new ObjectMapper(new YAMLFactory());
+            }
+        }
+        return null;
     }
 
 }

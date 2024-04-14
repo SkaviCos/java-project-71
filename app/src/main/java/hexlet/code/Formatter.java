@@ -12,14 +12,17 @@ public class Formatter {
 
     public static String formatStyle(
             List<Map<String, Object>> differences, String format) throws IOException {
-        if (format.equals("stylish")) {
-            return Stylish.format(differences);
-        } else if (format.equals("plain")) {
-            return Plain.format(differences);
-        } else if (format.equals("json")) {
-            return Json.format(differences);
-        } else {
-            System.out.println("Format" + format + "is not correct!");
+        switch (format) {
+            case "stylish" -> {
+                return Stylish.format(differences);
+            }
+            case "plain" -> {
+                return Plain.format(differences);
+            }
+            case "json" -> {
+                return Json.format(differences);
+            }
+            default -> System.out.println("Format" + format + "is not correct!");
         }
         return Stylish.format(differences);
     }
