@@ -23,6 +23,7 @@ public class Parser {
             case "yaml", "yml" -> {
                 return new ObjectMapper(new YAMLFactory());
             }
+            default -> System.out.println("Format" + fileType + "is not available!");
         }
         return null;
     }
