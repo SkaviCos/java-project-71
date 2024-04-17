@@ -2,7 +2,6 @@ package hexlet.code.formatters;
 
 public enum Formats {
 
-
     JSON("json"),
     PLAIN("plain"),
     STYLISH("stylish");
@@ -16,4 +15,3 @@ public enum Formats {
         return value;
     }
 }
-

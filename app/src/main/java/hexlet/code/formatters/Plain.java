@@ -15,12 +15,11 @@ public class Plain {
                         .append(" was added with value: ")
                         .append(complexValue(diffs.get("newValue")))
                         .append("\n");
-                case "updated" ->
-                        result.append("Property ").append(complexValue(diffs.get("key")))
-                                .append(" was updated. From ")
-                                .append(complexValue(diffs.get("oldValue"))).append(" to ")
-                                .append(complexValue(diffs.get("newValue")))
-                                .append("\n");
+                case "updated" -> result.append("Property ").append(complexValue(diffs.get("key")))
+                        .append(" was updated. From ")
+                        .append(complexValue(diffs.get("oldValue"))).append(" to ")
+                        .append(complexValue(diffs.get("newValue")))
+                        .append("\n");
 
                 default -> result.append("");
             }
@@ -31,12 +30,12 @@ public class Plain {
     }
 
     public static String complexValue(Object data) {
-        if (data instanceof List || data instanceof Map) {
+        if (data == null) {
+            return null;
+        } else if (data instanceof List || data instanceof Map) {
             return "[complex value]";
         } else if (data instanceof String) {
             return "'" + data + "'";
-        } else if (data == null) {
-            return null;
         }
         return data.toString();
     }
