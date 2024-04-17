@@ -50,7 +50,7 @@ public class DifferTest {
 
     @ParameterizedTest(name = "{index} Style {2} test with files {0} and {1}")
     @MethodSource("testStyle")
-    void styleTest(String path1, String path2, String format, String expectedStyle) throws Exception {
+    final void styleTest(String path1, String path2, String format, String expectedStyle) throws Exception {
         String expected = Files.readString(normalize(expectedStyle));
         assertEquals(expected, Differ.generate(path1, path2, format));
     }
