@@ -21,7 +21,7 @@ public class Stylish {
                     result.append("  + ").append(diffs.get("key")).append(": ")
                             .append(diffs.get("newValue")).append("\n");
                 }
-                default -> throw new Exception("Invalid format");
+                default -> throw new Exception("Invalid status");
             }
 
         }
